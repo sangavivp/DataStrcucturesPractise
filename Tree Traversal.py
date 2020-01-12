@@ -85,8 +85,25 @@ def reverse_order_using_queue(root):
         print(stack.pop().value)
 
 
+def is_leaf(node):  # To check if its a leaf node
+    if node.right and node.left is None:
+        return True
+    else:
+        return False
 
-def
+
+def find_nodes_at_dist_q50(node, path, dict_nodes, dist):
+    # Empty tree and base condition
+    if node is None:
+        return
+
+    if is_leaf(node) and len(path) >= dist:
+        dict_nodes[len(path) - dist] = node
+        return
+    path.append(node)
+    find_nodes_at_dist_q50(node.right, path, dict_nodes, dist)
+    find_nodes_at_dist_q50(node.left, path, dict_nodes, dist)
+
 
 rootNode = Node(1)
 rootNode.left = Node(2)
@@ -96,9 +113,13 @@ rootNode.left.right = Node(5)
 rootNode.right.left = Node(6)
 rootNode.right.right = Node(7)
 
-
-#level_order_using_queue(rootNode)
+level_order_using_queue(rootNode)
 reverse_order_using_queue(rootNode)
+path = list()
+path.append(rootNode)
+dict_nodes = dict()
+
+find_nodes_at_dist_q50(rootNode, path, dict_nodes, 1)
 
 
 
